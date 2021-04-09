@@ -336,7 +336,7 @@
 
 
 
-    <div class="comments gitalk-container"></div>
+    <div class="comments utterances-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -395,24 +395,16 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
-
 <script>
-NexT.utils.loadComments('.gitalk-container', () => {
-  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : '48991a0fd7557f4a1cab',
-      clientSecret: 'fc67f8c99b4aa88db27d7c1d56659f800e5a8780',
-      repo        : 'comment-lib',
-      owner       : 'zhuzhile',
-      admin       : ['zhuzhile'],
-      id          : '63485559d91cc6e901f04666215c83ae',
-      proxy       : 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
-        language: '',
-      distractionFreeMode: true
-    });
-    gitalk.render(document.querySelector('.gitalk-container'));
-  }, window.Gitalk);
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "zhuzhile/comment-lib");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-light");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
 });
 </script>
 
