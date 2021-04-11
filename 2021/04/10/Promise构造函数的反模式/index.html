@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"zhuzhile.githu.io","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="Promise在不同的应用场景中的注意事项。">
+<meta name="description" content="Promise在不同的应用场景中的注意事项">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Promise构造函数的反模式">
 <meta property="og:url" content="https://zhuzhile.githu.io/2021/04/10/Promise%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%8D%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="siven&#39;s blogs">
-<meta property="og:description" content="Promise在不同的应用场景中的注意事项。">
+<meta property="og:description" content="Promise在不同的应用场景中的注意事项">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-10T11:57:34.000Z">
-<meta property="article:modified_time" content="2021-04-11T03:00:42.463Z">
+<meta property="article:modified_time" content="2021-04-11T05:40:05.395Z">
 <meta property="article:author" content="BeMount">
 <meta property="article:tag" content="front_end Promise">
 <meta name="twitter:card" content="summary">
@@ -148,7 +148,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -161,6 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bad-Code"><span class="nav-number">1.</span> <span class="nav-text">Bad Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Good-Code"><span class="nav-number">2.</span> <span class="nav-text">Good Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">定义：</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -271,7 +272,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-11 11:00:42" itemprop="dateModified" datetime="2021-04-11T11:00:42+08:00">2021-04-11</time>
+        <time title="Modified: 2021-04-11 13:40:05" itemprop="dateModified" datetime="2021-04-11T13:40:05+08:00">2021-04-11</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -286,7 +287,7 @@
   
 </div>
 
-            <div class="post-description">Promise在不同的应用场景中的注意事项。</div>
+            <div class="post-description">Promise在不同的应用场景中的注意事项</div>
         </div>
       </header>
 
@@ -294,8 +295,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>Bad Code</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Bad example! Spot 3 mistakes!</span></span><br><span class="line"></span><br><span class="line">doSomething().then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">  doSomethingElse(result) <span class="comment">// Forgot to return promise from inner chain + unnecessary nesting</span></span><br><span class="line">  .then(<span class="function"><span class="params">newResult</span> =&gt;</span> doThirdThing(newResult));</span><br><span class="line">&#125;).then(<span class="function">() =&gt;</span> doFourthThing());</span><br><span class="line"><span class="comment">// Forgot to terminate chain with a catch!</span></span><br></pre></td></tr></table></figure>
+        <p>先从一个例子来看看Promise的常见的使用错误。</p>
+<h4 id="Bad-Code"><a href="#Bad-Code" class="headerlink" title="Bad Code"></a>Bad Code</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Bad example! Spot 3 mistakes!</span></span><br><span class="line"></span><br><span class="line">doSomething().then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">  doSomethingElse(result) <span class="comment">// Forgot to return promise from inner chain + unnecessary nesting</span></span><br><span class="line">  .then(<span class="function"><span class="params">newResult</span> =&gt;</span> doThirdThing(newResult));</span><br><span class="line">&#125;).then(<span class="function">() =&gt;</span> doFourthThing());</span><br><span class="line"><span class="comment">// Forgot to terminate chain with a catch!</span></span><br></pre></td></tr></table></figure>
 
 <p>注意事项</p>
 <ul>
@@ -306,16 +307,13 @@
 <li><p>The third mistake is forgetting to terminate chains with <code>catch</code>. Unterminated promise chains lead to uncaught promise rejections in most browsers.（第三个错误就是没有用catch来终止<code>promise</code>链）</p>
 </li>
 </ul>
-<p><strong>Good Code</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">doSomething()</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> doSomethingElse(result);</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">newResult</span> =&gt;</span> doThirdThing(newResult))</span><br><span class="line">.then(<span class="function">() =&gt;</span> doFourthThing())</span><br><span class="line">.catch(<span class="function"><span class="params">error</span> =&gt;</span> <span class="built_in">console</span>.error(error));</span><br></pre></td></tr></table></figure>
+<h4 id="Good-Code"><a href="#Good-Code" class="headerlink" title="Good Code"></a>Good Code</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">doSomething()</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> doSomethingElse(result);</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">newResult</span> =&gt;</span> doThirdThing(newResult))</span><br><span class="line">.then(<span class="function">() =&gt;</span> doFourthThing())</span><br><span class="line">.catch(<span class="function"><span class="params">error</span> =&gt;</span> <span class="built_in">console</span>.error(error));</span><br></pre></td></tr></table></figure>
 
-
-
-<p>下面来说说<code>Promise的构造函数反模式</code>,这是它的定义<code>which combines nesting with redundant use of the promise constructor to wrap code that already uses promises.</code></p>
-<p>例子：</p>
+<h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><p>下面来说说<code>Promise的构造函数反模式</code>,这是它的定义<code>which combines nesting with redundant use of the promise constructor to wrap code that already uses promises.</code></p>
+<p>Example1：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStuffDone</span>(<span class="params">param</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  	<span class="comment">// using a promise constructor</span></span><br><span class="line">   	myPromiseFn(param)</span><br><span class="line">   	.then(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line"> 		resolve(val);</span><br><span class="line">   	&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    	reject(err);</span><br><span class="line">    &#125;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
-<p>另外再看一下<code>iview admin</code>中的应用（我只想说这个代码写的好迷呀🙄），如果其中一个函数出错，那么肯定是没有得到处理，我觉得最起码在两处加上<code>catch</code>语句。</p>
+<p>另外再看一下<code>iview admin</code>中的应用（我只想说这个代码写的好迷呀🙄），违反了上面的注意事项，有两条不同的链，而且如果其中一个函数出错，那么肯定是没有得到处理，我觉得如果使用的化，最起码在两处加上<code>catch</code>语句。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">this</span>.handleLogin(&#123; userName, password &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.getUserInfo().then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">this</span>.$router.push(&#123;</span><br><span class="line">            name: <span class="built_in">this</span>.$config.homeName</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"><span class="comment">//改成链式</span></span><br><span class="line"> <span class="built_in">this</span>.handleLogin(&#123; userName, password &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getUserInfo()</span><br><span class="line"> 		&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">          	<span class="built_in">this</span>.$router.push(&#123;</span><br><span class="line">            name: <span class="built_in">this</span>.$config.homeName</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;login error&#x27;</span>))</span><br></pre></td></tr></table></figure>
 
 <p><code>Vuex</code>中的代码（代码里加了注释）</p>
