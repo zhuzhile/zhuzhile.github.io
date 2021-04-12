@@ -39,6 +39,31 @@
       </tags>
   </entry>
   <entry>
+    <title>字节OpenDay总结</title>
+    <url>/2021/04/12/%E5%AD%97%E8%8A%82OpenDay%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h4 id="感受："><a href="#感受：" class="headerlink" title="感受："></a>感受：</h4><p>​    大厂是在造轮子，而不是使用😶。</p>
+<h4 id="流程："><a href="#流程：" class="headerlink" title="流程："></a>流程：</h4><ol>
+<li>首先他们介绍了南京字节的主要业务，数据平台。</li>
+<li>进入Q&amp;A环节（主要聊了一些面试需要注意啥）。</li>
+<li>吃吃工作餐。</li>
+</ol>
+<h4 id="收获："><a href="#收获：" class="headerlink" title="收获："></a>收获：</h4><ul>
+<li>在简历中遵循STAR原则，结尾的Result中注意具体数据体现。</li>
+<li>在面试时要从面试官的角度思考，要从一个点扩展到一个面。</li>
+<li>如果在Github开源项目中有贡献最好。</li>
+</ul>
+<h4 id="反思："><a href="#反思：" class="headerlink" title="反思："></a>反思：</h4><ul>
+<li>在学习中要注意脑图的使用，组成自己的技术结构</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>字节，参观，学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三栏布局</title>
     <url>/2021/04/09/%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/</url>
     <content><![CDATA[<h3 id="三栏布局"><a href="#三栏布局" class="headerlink" title="三栏布局"></a>三栏布局</h3><h4 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">240px</span>;</span><br><span class="line">    <span class="attribute">margin-right</span>: <span class="number">120px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &gt; <span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">float</span><span class="selector-pseudo">:left</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">220px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">left</span>: -<span class="number">240px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: pink;		</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">right</span>: -<span class="number">120px</span>;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
