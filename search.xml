@@ -32,7 +32,7 @@
 <p> <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise</a><br> <a href="https://stackoverflow.com/questions/23803743/what-is-the-explicit-promise-construction-antipattern-and-how-do-i-avoid-it">https://stackoverflow.com/questions/23803743/what-is-the-explicit-promise-construction-antipattern-and-how-do-i-avoid-it</a><br> <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises</a></p>
 ]]></content>
       <categories>
-        <category>front_end</category>
+        <category>front-end</category>
       </categories>
       <tags>
         <tag>Promise</tag>
