@@ -97,9 +97,9 @@
     <title>回流与重绘</title>
     <url>/2021/04/18/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98/</url>
     <content><![CDATA[<h3 id="浏览器渲染的关键路径"><a href="#浏览器渲染的关键路径" class="headerlink" title="浏览器渲染的关键路径"></a>浏览器渲染的关键路径</h3><p>The critical rendering path includes the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">Document Object Model </a>(DOM), <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model">CSS Object Model </a>(CSSOM), render tree and layout.</p>
-<p><img src="/images/critical-rendering-path.jpg"></p>
+<p><img src="/images/critical-rendering-path.png"></p>
 <h3 id="关于渲染树"><a href="#关于渲染树" class="headerlink" title="关于渲染树"></a>关于渲染树</h3><p>The render tree only captures visible content. The head section (generally) doesn’t contain any visible information, and is therefore not included in the render tree. If there’s a display: none; set on an element, neither it, nor any of its descendants, are in the render tree.</p>
-<p><img src="/images/render-tree-construction.jpg"></p>
+<p><img src="/images/render-tree-construction.png"></p>
 <p>To construct the render tree, the browser roughly does the following:</p>
 <ol>
 <li>Starting at the root of the DOM tree, traverse each visible node.<ul>
@@ -110,7 +110,7 @@
 <li>For each visible node, find the appropriate matching CSSOM rules and apply them.</li>
 <li>Emit visible nodes with content and their computed styles.</li>
 </ol>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">note that visibility: hidden is different from display: none. The former makes the element invisible, but the element still occupies space in the layout (that is, it&#x27;s rendered as an empty box), whereas the latter (display: none) removes the element entirely from the render tree such that the element is invisible and is not part of the layout.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">note that visibility: hidden is different from display: none. </span><br><span class="line">The former makes the element invisible, but the element still occupies space in the layout (that is, it&#39;s rendered as an empty box), </span><br><span class="line">whereas the latter (display: none) removes the element entirely from the render tree such that the element is invisible and is not part of the layout.</span><br></pre></td></tr></table></figure>
 
 <h3 id="布局与绘制定义"><a href="#布局与绘制定义" class="headerlink" title="布局与绘制定义"></a>布局与绘制定义</h3><h4 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h4><p>Once the render tree is built, layout becomes possible. Layout is dependent on the size of screen. The layout step determines where and how the elements are positioned on the page, determining the width and height of each element, and where they are in relation to each other.</p>
 <h4 id="绘制"><a href="#绘制" class="headerlink" title="绘制"></a>绘制</h4><p>The last step is painting the pixels to the screen. Once the render tree is created and layout occurs, the pixels can be painted to the screen. Onload, the entire screen is painted. After that, only impacted areas of the screen will be repainted, as browsers are optimized to repaint the minimum area required. Paint time depends on what kind of updates are being applied to the render tree.</p>
