@@ -68,29 +68,31 @@
       </tags>
   </entry>
   <entry>
-    <title>字节OpenDay总结</title>
-    <url>/2021/04/12/%E5%AD%97%E8%8A%82OpenDay%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h4 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h4><p>​    大厂是在造轮子，而不是使用😶。</p>
-<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
-<li>首先他们介绍了南京字节的主要业务，数据平台。</li>
-<li>进入Q&amp;A环节（主要聊了一些面试需要注意啥）。</li>
-<li>吃吃工作餐。</li>
-</ol>
-<h4 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h4><ul>
-<li>在简历中遵循STAR原则，结尾的Result中注意具体数据体现。</li>
-<li>在面试时要从面试官的角度思考，要从一个点扩展到一个面。</li>
-<li>如果在Github开源项目中有贡献最好。</li>
+    <title>全排列</title>
+    <url>/2021/04/24/%E5%85%A8%E6%8E%92%E5%88%97/</url>
+    <content><![CDATA[<h4 id="全排列1"><a href="#全排列1" class="headerlink" title="全排列1"></a>全排列1</h4><ul>
+<li>给定一个 <strong>没有重复</strong> 数字的序列，返回其所有可能的全排列。</li>
 </ul>
-<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><ul>
-<li>在学习中要注意脑图的使用，组成自己的技术结构</li>
-</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> permute = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length == <span class="number">0</span> )&#123;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> res = [], path = [], used = [];</span><br><span class="line"></span><br><span class="line">    dfs(res, nums, <span class="number">0</span>, path, nums.length, used);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">res, nums, depth, path, len, used</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(depth == len)&#123;</span><br><span class="line">        res.push([...path]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!used[i])&#123;</span><br><span class="line">            path.push(nums[i]);</span><br><span class="line">            used[i] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            dfs(res, nums, depth + <span class="number">1</span> , path, len, used)</span><br><span class="line">			</span><br><span class="line">            path.pop();</span><br><span class="line">            used[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这种经典的算法题，最开始可能纠结于算法的执行顺序（可以在打断点自己看看顺序），在我看来最重要的是算法结构，比如这里解决问题的思路就是通过<code>for</code>循环里加递归的结构，使用这个结构的特点是，执行递归后面的代码之后，会继续参加<code>for</code>循环，就是在这里实现了排列。</p>
+<h4 id="全排列2"><a href="#全排列2" class="headerlink" title="全排列2"></a>全排列2</h4><p>给定一个可包含重复数字的序列 <code>nums</code> ，<strong>按任意顺序</strong> 返回所有不重复的全排列。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> permuteUnique = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> [res,path,used] = [[],[],[]];</span><br><span class="line"></span><br><span class="line">    nums.sort(<span class="function">(<span class="params">val1, val2</span>) =&gt;</span> val1 -val2);</span><br><span class="line"></span><br><span class="line">    dfs(res, path, used, nums, nums.length, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> res; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">res, path, used, nums, len, depth</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(depth === len)&#123;</span><br><span class="line">        res.push([...path]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len;i++)&#123;</span><br><span class="line">        <span class="comment">//剪枝条件</span></span><br><span class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; !used[i-<span class="number">1</span>] &amp;&amp; nums[i] === nums[i - <span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!used[i])&#123;</span><br><span class="line">            path.push(nums[i])</span><br><span class="line">            used[i] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            dfs(res, path, used, nums, len, depth + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            path.pop();</span><br><span class="line">            used[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里多了一个剪枝条件，同时注意这里首先进行了排序处理。</p>
+<p>参考链接：</p>
+<p><a href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
 ]]></content>
       <categories>
-        <category>面试</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>学习</tag>
-        <tag>字节</tag>
+        <tag>全排列</tag>
+        <tag>回溯</tag>
       </tags>
   </entry>
   <entry>
@@ -154,31 +156,29 @@
       </tags>
   </entry>
   <entry>
-    <title>全排列</title>
-    <url>/2021/04/24/%E5%85%A8%E6%8E%92%E5%88%97/</url>
-    <content><![CDATA[<h4 id="全排列1"><a href="#全排列1" class="headerlink" title="全排列1"></a>全排列1</h4><ul>
-<li>给定一个 <strong>没有重复</strong> 数字的序列，返回其所有可能的全排列。</li>
+    <title>字节OpenDay总结</title>
+    <url>/2021/04/12/%E5%AD%97%E8%8A%82OpenDay%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h4 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h4><p>​    大厂是在造轮子，而不是使用😶。</p>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
+<li>首先他们介绍了南京字节的主要业务，数据平台。</li>
+<li>进入Q&amp;A环节（主要聊了一些面试需要注意啥）。</li>
+<li>吃吃工作餐。</li>
+</ol>
+<h4 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h4><ul>
+<li>在简历中遵循STAR原则，结尾的Result中注意具体数据体现。</li>
+<li>在面试时要从面试官的角度思考，要从一个点扩展到一个面。</li>
+<li>如果在Github开源项目中有贡献最好。</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> permute = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length == <span class="number">0</span> )&#123;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> res = [], path = [], used = [];</span><br><span class="line"></span><br><span class="line">    dfs(res, nums, <span class="number">0</span>, path, nums.length, used);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">res, nums, depth, path, len, used</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(depth == len)&#123;</span><br><span class="line">        res.push([...path]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!used[i])&#123;</span><br><span class="line">            path.push(nums[i]);</span><br><span class="line">            used[i] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            dfs(res, nums, depth + <span class="number">1</span> , path, len, used)</span><br><span class="line">			</span><br><span class="line">            path.pop();</span><br><span class="line">            used[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这种经典的算法题，最开始可能纠结于算法的执行顺序（可以在打断点自己看看顺序），在我看来最重要的是算法结构，比如这里解决问题的思路就是通过<code>for</code>循环里加递归的结构。</p>
-<h4 id="全排列2"><a href="#全排列2" class="headerlink" title="全排列2"></a>全排列2</h4><p>给定一个可包含重复数字的序列 <code>nums</code> ，<strong>按任意顺序</strong> 返回所有不重复的全排列。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> permuteUnique = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.length === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> [res,path,used] = [[],[],[]];</span><br><span class="line"></span><br><span class="line">    nums.sort(<span class="function">(<span class="params">val1, val2</span>) =&gt;</span> val1 -val2);</span><br><span class="line"></span><br><span class="line">    dfs(res, path, used, nums, nums.length, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> res; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">res, path, used, nums, len, depth</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(depth === len)&#123;</span><br><span class="line">        res.push([...path]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len;i++)&#123;</span><br><span class="line">        <span class="comment">//剪枝条件</span></span><br><span class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; !used[i-<span class="number">1</span>] &amp;&amp; nums[i] === nums[i - <span class="number">1</span>])&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!used[i])&#123;</span><br><span class="line">            path.push(nums[i])</span><br><span class="line">            used[i] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            dfs(res, path, used, nums, len, depth + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            path.pop();</span><br><span class="line">            used[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里多了一个剪枝条件，同时注意这里首先进行了排序处理。</p>
-<p>参考链接：</p>
-<p><a href="https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/">https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/</a></p>
+<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><ul>
+<li>在学习中要注意脑图的使用，组成自己的技术结构</li>
+</ul>
 ]]></content>
       <categories>
-        <category>算法</category>
+        <category>面试</category>
       </categories>
       <tags>
-        <tag>全排列</tag>
-        <tag>回溯</tag>
+        <tag>学习</tag>
+        <tag>字节</tag>
       </tags>
   </entry>
 </search>
