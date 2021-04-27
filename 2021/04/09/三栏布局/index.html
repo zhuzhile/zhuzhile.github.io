@@ -33,8 +33,8 @@
 <meta property="article:published_time" content="2021-04-09T04:57:52.000Z">
 <meta property="article:modified_time" content="2021-04-12T02:57:15.364Z">
 <meta property="article:author" content="BeMount">
-<meta property="article:tag" content="基础">
 <meta property="article:tag" content="CSS">
+<meta property="article:tag" content="基础">
 <meta name="twitter:card" content="summary">
 
 
@@ -373,8 +373,8 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
               <a href="/tags/CSS/" rel="tag"># CSS</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
           </div>
 
         
@@ -397,6 +397,7 @@
 
 
 
+    <div class="comments gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -474,6 +475,27 @@
 
 
 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '48991a0fd7557f4a1cab',
+      clientSecret: '0ea7f5211bf656c1371cc0f7a614c668adc353be',
+      repo        : 'zhuzhile.github.io',
+      owner       : 'zhuzhile',
+      admin       : ['zhuzhile'],
+      id          : '889249349c36fc3943e3c1ae00129544',
+      proxy       : 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
