@@ -31,7 +31,7 @@
 <meta property="og:description" content="Regular expressions are patterns used to match character combinations in strings. In JavaScript, regular expressions are also objects. These patterns are used with the exec() and test() methods of Reg">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-29T10:56:16.000Z">
-<meta property="article:modified_time" content="2021-04-30T09:09:06.025Z">
+<meta property="article:modified_time" content="2021-04-30T09:12:53.014Z">
 <meta property="article:author" content="BeMount">
 <meta property="article:tag" content="正则">
 <meta name="twitter:card" content="summary">
@@ -299,7 +299,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-04-30 17:09:06" itemprop="dateModified" datetime="2021-04-30T17:09:06+08:00">2021-04-30</time>
+        <time title="Modified: 2021-04-30 17:12:53" itemprop="dateModified" datetime="2021-04-30T17:12:53+08:00">2021-04-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -372,11 +372,12 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regex = <span class="regexp">/^I love (JavaScript|Regular Expression)$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log( regex.test(<span class="string">&quot;I love JavaScript&quot;</span>) );</span><br><span class="line"><span class="built_in">console</span>.log( regex.test(<span class="string">&quot;I love Regular Expression&quot;</span>) );</span><br><span class="line"><span class="comment">// =&gt; true</span></span><br><span class="line"><span class="comment">// =&gt; true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果去掉正则中的括号，即：</span></span><br><span class="line"><span class="comment">// /^I love JavaScript|Regular Expression$/，</span></span><br><span class="line"><span class="comment">// 匹配字符串是 &quot;I love JavaScript&quot; 和 &quot;Regular Expression&quot;，当然这不是我们想要的。</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="匹配原理"><a href="#匹配原理" class="headerlink" title="匹配原理"></a>匹配原理</h5><pre><code>- 回溯法，本质上就是深度优先搜索算法。其中退到之前的某一步这一过程，我们称为“回溯”。从上面的描述过程中 ，可以看出，路走不通时，就会发生“回溯”。即，尝试匹配失败时，接下来的一步通常就是回溯。使用场景可以参考我之前一篇的博客`全排列`
-- 贪婪量词回溯，最先开始全部匹配如果不成功，就一个个减少
-- 惰性量词回溯，最先开始匹配最少情况，如果不成功，再递加。
-- 分支结构回溯，第一个不合适，就换第二个，如此类推。
-</code></pre>
+<h5 id="匹配原理"><a href="#匹配原理" class="headerlink" title="匹配原理"></a>匹配原理</h5><ul>
+<li>回溯法，本质上就是深度优先搜索算法。其中退到之前的某一步这一过程，我们称为“回溯”。从上面的描述过程中 ，可以看出，路走不通时，就会发生“回溯”。即，尝试匹配失败时，接下来的一步通常就是回溯。使用场景可以参考我之前一篇的博客<code>全排列</code></li>
+<li>贪婪量词回溯，最先开始全部匹配如果不成功，就一个个减少</li>
+<li>惰性量词回溯，最先开始匹配最少情况，如果不成功，再递加。</li>
+<li>分支结构回溯，第一个不合适，就换第二个，如此类推。</li>
+</ul>
 <p>最后来个书的作者形象总结：</p>
 <ul>
 <li><p>贪婪量词“试”的策略是：买衣服砍价。价钱太高了，便宜点，不行，再便宜点。 </p>
