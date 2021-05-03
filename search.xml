@@ -199,6 +199,32 @@
       </tags>
   </entry>
   <entry>
+    <title>字节OpenDay总结</title>
+    <url>/2021/04/12/%E5%AD%97%E8%8A%82OpenDay%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h4 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h4><p>​    大厂是在造轮子，而不是使用😶。</p>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
+<li>首先他们介绍了南京字节的主要业务，数据平台。</li>
+<li>进入Q&amp;A环节（主要聊了一些面试需要注意啥）。</li>
+<li>吃吃工作餐。</li>
+</ol>
+<h4 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h4><ul>
+<li>在简历中遵循STAR原则，结尾的Result中注意具体数据体现。</li>
+<li>在面试时要从面试官的角度思考，要从一个点扩展到一个面。</li>
+<li>如果在Github开源项目中有贡献最好。</li>
+</ul>
+<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><ul>
+<li>在学习中要注意脑图的使用，组成自己的技术结构</li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+        <tag>字节</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>回流与重绘</title>
     <url>/2021/04/18/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98/</url>
     <content><![CDATA[<h3 id="浏览器渲染的关键路径"><a href="#浏览器渲染的关键路径" class="headerlink" title="浏览器渲染的关键路径"></a>浏览器渲染的关键路径</h3><p>The critical rendering path includes the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">Document Object Model </a>(DOM), <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model">CSS Object Model </a>(CSSOM), render tree and layout.</p>
@@ -256,32 +282,6 @@
       <tags>
         <tag>基础</tag>
         <tag>回流与重绘</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字节OpenDay总结</title>
-    <url>/2021/04/12/%E5%AD%97%E8%8A%82OpenDay%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h4 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h4><p>​    大厂是在造轮子，而不是使用😶。</p>
-<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
-<li>首先他们介绍了南京字节的主要业务，数据平台。</li>
-<li>进入Q&amp;A环节（主要聊了一些面试需要注意啥）。</li>
-<li>吃吃工作餐。</li>
-</ol>
-<h4 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h4><ul>
-<li>在简历中遵循STAR原则，结尾的Result中注意具体数据体现。</li>
-<li>在面试时要从面试官的角度思考，要从一个点扩展到一个面。</li>
-<li>如果在Github开源项目中有贡献最好。</li>
-</ul>
-<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><ul>
-<li>在学习中要注意脑图的使用，组成自己的技术结构</li>
-</ul>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>学习</tag>
-        <tag>字节</tag>
       </tags>
   </entry>
 </search>
