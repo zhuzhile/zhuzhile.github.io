@@ -391,4 +391,62 @@
         <tag>字节</tag>
       </tags>
   </entry>
+  <entry>
+    <title>事件循环详解</title>
+    <url>/2021/08/13/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="JS事件循环"><a href="#JS事件循环" class="headerlink" title="JS事件循环"></a>JS事件循环</h1><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>可以试一下他的输出顺序。</p>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">script start</span><br><span class="line">script end</span><br><span class="line">promise1</span><br><span class="line">promise2</span><br><span class="line"><span class="built_in">setTimeout</span></span><br></pre></td></tr></table></figure>
+
+<p><em>在微软的Edge浏览器，和火狐40，Safari 8.0.8中<code>setTimeout</code>会比<code>promise1</code>和<code>promise2</code>先输出，出现这种情况真是奇了TML怪，因为Firefox39和Safari8.0.7一直都是正确的。</em></p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>想要了解事件循环，需要先了解事件循环是如何处理宏任务，与微任务。</p>
+<p>每一个线程有自己的事件循环机制。所以每一个<a href="https://developer.mozilla.org/zh-TW/docs/Web/API/Web_Workers_API/Using_web_workers"><code>web worker</code></a> 都是独立执行的，但是在同一个域名的窗口是同用一个事件循环，所以他们才可以同步通信。事件循环顺序执行队列任务。</p>
+<h1 id="Nodejs事件循环"><a href="#Nodejs事件循环" class="headerlink" title="Nodejs事件循环"></a>Nodejs事件循环</h1><p>NodeJs的事件循环与浏览器的事件循环机制并不相同，Nodejs虽然使用<code>Chrome v8</code>作为JS解释引擎，但是异步控制的实现是在<code>libuv</code>库中。</p>
+<p>来个栗子</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;start&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span></span><br><span class="line">(()</span><br><span class="line"> </span><br><span class="line">=&gt;</span><br><span class="line"> </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;timer1&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"><span class="built_in">Promise</span></span><br><span class="line">.</span><br><span class="line">resolve</span><br><span class="line">().</span><br><span class="line">then</span><br><span class="line">(</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;promise1&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#125;,</span><br><span class="line"> </span><br><span class="line"><span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span></span><br><span class="line">(()</span><br><span class="line"> </span><br><span class="line">=&gt;</span><br><span class="line"> </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;timer2&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"><span class="built_in">Promise</span></span><br><span class="line">.</span><br><span class="line">resolve</span><br><span class="line">().</span><br><span class="line">then</span><br><span class="line">(</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;promise2&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#125;,</span><br><span class="line"> </span><br><span class="line"><span class="number">0</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span></span><br><span class="line">.</span><br><span class="line">resolve</span><br><span class="line">().</span><br><span class="line">then</span><br><span class="line">(</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;promise3&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span></span><br><span class="line">.</span><br><span class="line">log</span><br><span class="line">(</span><br><span class="line"><span class="string">&#x27;end&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// start,</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// end,</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// promise3,</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// timer1,</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// timer2,</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// promise1,</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// promise2</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>参考链接</p>
+<p><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/</a></p>
+<p><a href="https://mp.weixin.qq.com/s/hE-tK_PbSYkMms8P9b2H7A">https://mp.weixin.qq.com/s/hE-tK_PbSYkMms8P9b2H7A</a></p>
+<p><a href="https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/">https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/</a></p>
+]]></content>
+      <categories>
+        <category>JS,翻译</category>
+      </categories>
+      <tags>
+        <tag>EventLoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微任务与宏任务</title>
+    <url>/2021/08/02/%E5%BE%AE%E4%BB%BB%E5%8A%A1%E4%B8%8E%E5%AE%8F%E4%BB%BB%E5%8A%A1/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>我的秋招之路</title>
+    <url>/2021/10/13/%E6%88%91%E7%9A%84%E7%A7%8B%E6%8B%9B%E4%B9%8B%E8%B7%AF/</url>
+    <content><![CDATA[<p>我 <strong>七月份</strong>开始投递公司，我觉得我的面试分三个阶段吧。 </p>
+<ul>
+<li><p>  <strong>第一阶段试探阶段</strong>，第一家面了<strong>浙江<a href="">大华</a>提前批</strong>，两轮技术面加HR面，最后收获意向。这个阶段只是为了找找秋招的节奏，而且也写了很多公司的笔试。 </p>
+</li>
+<li><p> <strong>第二阶段自杀式投递大厂</strong>，首先面了**<a href="">美团</a>智慧交通平台<strong>，这是我第一次面互联网大厂，稍微有一点紧张，但面试官很nice，当时面了将近80分钟左右，但是一面挂了。。。 然后面了</strong>字节<strong>，字节一面的面试体验很好，面试官也挺年轻的，一面顺利通过了，字节二面碰到一些自己没有准备的东西就GG了，再然后面了</strong><a href="">腾讯</a>TEG<strong>，在视频面之前,来了两轮电话面，记得我当时接到电话面试的心情是很懵的一度以为不是<a href="">腾讯</a>，两轮电话面试中面试官都很nice，紧接着等来了视频一面，一面主要是做题，面试管没有问啥问题，可能是因为我之前已经两轮电话面了😶，在第二轮面试中，我明显感觉面试官气场不一样，死死被压制，以至于很多东西只能说了解过，但没有使用经历，菜狗留下没有技术的眼泪。同时，在大厂面试中也穿插着</strong><a href="">百度</a>一面<strong>和</strong><a href="">有赞</a>一面 ，**简单来说<a href="">百度</a>死于智力题，<a href="">有赞</a>败在<a href="">项目</a>经历。。 </p>
+</li>
+<li><p> <strong>第三阶段认清自己投递中厂，</strong><a href="">小红书</a><strong>三面结束等待被捞中，9.30号收到邮件通知近期会有HR联系。</strong>南京帆软<strong>一面结束后进入offer审批中，已经收到意向。</strong><a href="">美团</a>优选被捞，但在第二轮视频面试中，觉得自己第二道场景题写的并不好，但还是在吃饭时收到HR面邀请，HR面结束后至今没有消息。通过<a href="">华为</a>运营商BG机试，专业面试，然后挂在主管面。。。 </p>
+</li>
+</ul>
+<p>  这就是本菜狗秋招之路，希望每一个看到文章的人都能收获自己想要的offer吧。。</p>
+]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>求职</tag>
+        <tag>校招</tag>
+      </tags>
+  </entry>
 </search>
