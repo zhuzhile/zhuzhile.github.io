@@ -288,7 +288,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-10-13 20:50:51 / Modified: 20:57:48" itemprop="dateCreated datePublished" datetime="2021-10-13T20:50:51+08:00">2021-10-13</time>
+      <time title="Created: 2021-10-13 20:50:51 / Modified: 21:07:37" itemprop="dateCreated datePublished" datetime="2021-10-13T20:50:51+08:00">2021-10-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -375,7 +375,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-10-13 21:04:43" itemprop="dateModified" datetime="2021-10-13T21:04:43+08:00">2021-10-13</time>
+        <time title="Modified: 2021-10-13 21:16:42" itemprop="dateModified" datetime="2021-10-13T21:16:42+08:00">2021-10-13</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -397,27 +397,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="JS事件循环"><a href="#JS事件循环" class="headerlink" title="JS事件循环"></a>JS事件循环</h1><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script start&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;setTimeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;script end&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>可以试一下他的输出顺序。</p>
-<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">script start</span><br><span class="line">script end</span><br><span class="line">promise1</span><br><span class="line">promise2</span><br><span class="line"><span class="built_in">setTimeout</span></span><br></pre></td></tr></table></figure>
-
-<p><em>在微软的Edge浏览器，和火狐40，Safari 8.0.8中<code>setTimeout</code>会比<code>promise1</code>和<code>promise2</code>先输出，出现这种情况真是奇了TML怪，因为Firefox39和Safari8.0.7一直都是正确的。</em></p>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>想要了解事件循环，需要先了解事件循环是如何处理宏任务，与微任务。</p>
-<p>每一个线程有自己的事件循环机制。所以每一个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Web_Workers_API/Using_web_workers"><code>web worker</code></a> 都是独立执行的，但是在同一个域名的窗口是同用一个事件循环，所以他们才可以同步通信。事件循环顺序执行队列任务。</p>
-<h1 id="Nodejs事件循环"><a href="#Nodejs事件循环" class="headerlink" title="Nodejs事件循环"></a>Nodejs事件循环</h1><p>Nodejs的事件循环与浏览器的事件循环机制并不相同，Nodejs虽然使用<code>Chrome v8</code>作为JS解释引擎，但是异步控制的实现是在<code>libuv</code>库中。</p>
-<p>来个栗子</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;start&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&#x27;timer1&#x27;</span>)</span><br><span class="line">	<span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&#x27;promise1&#x27;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&#x27;timer2&#x27;</span>)</span><br><span class="line">	<span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">&#x27;promise2&#x27;</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&#x27;promise3&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;end&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// start,</span></span><br><span class="line"><span class="comment">// end,</span></span><br><span class="line"><span class="comment">// promise3,</span></span><br><span class="line"><span class="comment">// timer1,</span></span><br><span class="line"><span class="comment">// timer2,</span></span><br><span class="line"><span class="comment">// promise1,</span></span><br><span class="line"><span class="comment">// promise2</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>参考链接</p>
-<p><a target="_blank" rel="noopener" href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/">https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/hE-tK_PbSYkMms8P9b2H7A">https://mp.weixin.qq.com/s/hE-tK_PbSYkMms8P9b2H7A</a></p>
-<p><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/">https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/</a></p>
-
+          <p>我们都知道JS是单线程的语言，那有的同学就有疑问:'单线程那岂不是效率很低?'，下面我们就来看看和单线程密切相关的事件循环是如何解决效率问题。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/13/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E8%AF%A6%E8%A7%A3/">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
